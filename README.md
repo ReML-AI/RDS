@@ -137,7 +137,7 @@ Evaluating with Ensemble Benchmarking
 
 ```
 python evaluator.py --data-loader datasets.MNIST --sample outputs/MNIST_DET.npy --task classification --measure f1_micro --envs models.MNIST_CNN models.MNIST_RF models.MNIST_LR
-python evaluator.py  --data-loader datasets.MNIST --sample outputs/MNIST_STO.npy --task classification --measure f1_micro --envs models.MNIST_CNN models.MNIST_RF models.MNIST_LR
+python evaluator.py --data-loader datasets.MNIST --sample outputs/MNIST_STO.npy --task classification --measure f1_micro --envs models.MNIST_CNN models.MNIST_RF models.MNIST_LR
 ```
 
 ## Citing this work
