@@ -1,6 +1,6 @@
 # RDS
 
-Implementation of Reinforced Data Sampling for Model Diversification.
+Implementation of [Reinforced Data Sampling for Model Diversification](https://arxiv.org/pdf/2006.07100).
 
 ### Requirements
 
@@ -149,7 +149,7 @@ Please consider citing us if this work is useful in your research:
     title={Reinforced Data Sampling for Model Diversification},
     author={Hoang D. Nguyen and Xuan-Son Vu and Quoc-Tuan Truong and Duc-Trong Le},
     year={2020},
-    eprint={},
+    eprint={2006.07100},
     archivePrefix={arXiv},
     primaryClass={cs.LG}
 }
