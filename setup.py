@@ -9,20 +9,19 @@ with open(path.join(this_directory, 'README.md'), encoding='utf-8') as f:
 setup(
   name = 'torchRDS',
   packages = ['torchRDS'],
-  version = '0.2',
+  version = '0.3',
   license='MIT',
   description = 'Reinforced Data Sampling for Model Diversification',
   author = 'Harry Nguyen',
   author_email = 'harry.nguyen@outlook.com',
   url = 'https://github.com/probeu/RDS',
-  download_url = 'https://github.com/probeu/RDS/archive/v_02.tar.gz',
+  download_url = 'https://github.com/probeu/RDS/archive/v_03.tar.gz',
   keywords = ['Data-Sampling', 'Reinforcement-Learning', 'Machine-Learning'],
   install_requires=[
           'numpy',
           'torch',
           'scikit-learn',
-          'pandas',
-          'pickle'
+          'pandas'
       ],
   classifiers=[
     'Development Status :: 4 - Beta',
