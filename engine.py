@@ -147,8 +147,8 @@ class RDSPolicy(nn.Module):
 class LearningEnv:
     def __init__(self, opt):
         self.opt = opt
-        self.models = []
-        for model in self.opt["envs"]:
+        self.models = opt.get("models", [])
+        for model in opt.get("envs", []):
             self.models.append(load_lib(model))
 
     def reset(self):
