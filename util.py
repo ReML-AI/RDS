@@ -10,9 +10,9 @@ def evaluate(y, y_pred, measure=None):
     if measure == "auc":
         return roc_auc_score(y, y_pred)
     elif measure == "mse":
-        return -mean_squared_error(y.ravel(), y_pred.ravel())
+        return mean_squared_error(y.ravel(), y_pred.ravel())
     elif measure == "cross_entropy":
-        return -log_loss(y, y_pred)
+        return log_loss(y, y_pred)
     elif measure == "f1_micro":
         return f1_score(np.argmax(y, axis=1), np.argmax(y_pred, axis=1), average='micro')
     else:
