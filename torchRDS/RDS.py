@@ -19,9 +19,9 @@ from tqdm import tqdm
 
 
 class RDS:
-    def __init__(self, opt=None, exp="latest", data_file=None,target=None, X=None, Y=None, data_loader=None,
+    def __init__(self, opt=None, exp="latest", data_file=None,target=None, data_x=None, data_y=None, data_loader=None,
         sample_file=None, task="classification", measure="auc", model_classes=[], models=[], 
-        learn="stochastic", iters=500, burnin=30, eps=3, ratio=0.6, delta=0.01, 
+        learn="stochastic", iters=500, burnin=30, eps=3, ratio=0.6, delta=0.02, 
         weight_perf=1.0, weight_ratio=0.9, weight_iid=0.1, weight_kl=0.1, 
         learning_rate=0.001, hidden_dim=256, device="cuda", report_file=None, checkpoint_file=None, verbose=1):
         """ Reinforced Data Sampling - Initialization
@@ -31,8 +31,8 @@ class RDS:
             exp (str, optional): The experiment id. Defaults to "latest".
             data_file (str, optional): The path to data file. Defaults to None.
             target (array, optional): The target columns. Defaults to None.
-            X (array, optional): The input variables. Defaults to None.
-            Y (array, optional): The output variables. Defaults to None.
+            data_x (array, optional): The input variables. Defaults to None.
+            data_y (array, optional): The output variables. Defaults to None.
             data_loader (str, optional): The data loader class. Defaults to None.
             sample_file (str, optional): The output sample file. Defaults to None.
             task (str, optional): The task type (e.g., classification, regression). Defaults to "classification".
@@ -44,7 +44,7 @@ class RDS:
             burnin (int, optional): The number of total iterations to burn. Defaults to 30.
             eps (int, optional): The number of total episodes per epoch. Defaults to 3.
             ratio (float, optional): The sampling ratio. Defaults to 0.6.
-            delta (float, optional): The sampling delta for return. Defaults to 0.01.
+            delta (float, optional): The sampling delta for return. Defaults to 0.02.
             weight_perf (float, optional): The weight factor for model performance. Defaults to 1.0.
             weight_ratio (float, optional): The weight factor for sampling ratio. Defaults to 0.9.
             weight_iid (float, optional): The weight factor for class ratios in classification. Defaults to 0.1.
@@ -57,9 +57,9 @@ class RDS:
             verbose (int, optional): The verbose level (0 - no printing, 1 - printing). Defaults to 1.
         """
         self.opt = {}
-        self.opt.update({"exp": exp, "data_file": data_file, "target": target, "X": X, "Y": Y, "data_loader": data_loader,
+        self.opt.update({"exp": exp, "data_file": data_file, "target": target, "data_x": data_x, "data_y": data_y, "data_loader": data_loader,
            "sample_file": sample_file, "task": task, "measure": measure, "model_classes": model_classes, "models": models, 
-           "learn": learn, "iters": 500, "burnin": burnin, "eps": eps, "ratio": ratio, "delta": delta,
+           "learn": learn, "iters": iters, "burnin": burnin, "eps": eps, "ratio": ratio, "delta": delta,
            "weight_perf": weight_perf, "weight_ratio": weight_ratio, "weight_iid": weight_iid, "weight_kl": weight_kl,
            "learning_rate": learning_rate, "hidden_dim": hidden_dim, "dev": device, 
            "report_file": report_file, "checkpoint_file": checkpoint_file, "verbose": verbose})
@@ -109,7 +109,11 @@ class RDS:
         return action.data.cpu().numpy(), m.log_prob(action).mean().to(self.opt["device"])
 
     def train(self):
-        data_x, data_y = RDSUtil.load_data(self.opt["data_file"], self.opt["target"], self.opt["task"] == "classification", self.opt["data_loader"])
+        if self.opt.get("data_x") is None or self.opt.get("data_y") is None:
+            data_x, data_y = RDSUtil.load_data(self.opt["data_file"], self.opt["target"], 
+                self.opt["task"] == "classification", self.opt["data_loader"])
+        else:
+            data_x, data_y = (self.opt.get("data_x"), self.opt.get("data_y"))
 
         self.policy = RDSPolicy(input_dim=data_x.shape[1] + data_y.shape[1], hidden_dim=self.opt["hidden_dim"])
         self.policy.to(self.opt["device"])
@@ -183,7 +187,7 @@ class RDS:
             self.save_checkpoints()
 
             if self.opt["iters"] > 0 and self.opt["episode"] > self.opt["iters"]:
-                return
+                return self.opt["best_action"]
         
         return self.opt["best_action"]
 
