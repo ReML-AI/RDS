@@ -2,14 +2,6 @@
 
 Implementation of [Reinforced Data Sampling for Model Diversification](https://arxiv.org/pdf/2006.07100).
 
-### Requirements
-
-- numpy
-- torch
-- scikit-learn
-- pandas
-- tqdm
-
 ### Machine Learning Tasks
 
 This repository supports multiple machine learning tasks on multivariate, textual and visual data:
@@ -17,6 +9,14 @@ This repository supports multiple machine learning tasks on multivariate, textua
 - **Binary Classification**
 - **Multi-Class Classification**
 - **Regression**
+
+### Requirements
+
+- numpy
+- torch
+- scikit-learn
+- pandas
+- tqdm
 
 ### Installation
 
