@@ -2,6 +2,8 @@
 
 Implementation of [Reinforced Data Sampling for Model Diversification](https://arxiv.org/pdf/2006.07100).
 
+This work provides a method to learn how to sample data effectively on the search for useful models and meaningful insights. By employing diverse base learners such as neural networks, decision trees, or support vector machines, RDS aims to maximize the learning potentials and optimum allocation of data sampling to disentangle dataset shift and evidence ambiguity. In the hope of saving a massive amount of computational resources and time, we design RDS as a viable alternative to simple randomization and stratification in *train_test_split* for various machine learning tasks such as classification and regression.
+
 ### Machine Learning Tasks
 
 This repository supports multiple machine learning tasks on multivariate, textual and visual data:
