@@ -33,7 +33,7 @@ from torchRDS.RDS import RDS
 
 trainer = RDS(data_file="datasets/madelon.csv", target=[0], task="classification", measure="auc", 
               model_classes=["models.MDL_RF", "models.MDL_MLP", "models.MDL_LR"], 
-              learn="stochastic", ratio=0.7695, iters=150)
+              learn="deterministic", ratio=0.7695, iters=100)
 sample = trainer.train()
 
 print("No of observations in training set: ", sum(sample))
