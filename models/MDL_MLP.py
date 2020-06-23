@@ -14,7 +14,7 @@ class MDL_MLP:
         pass
 
     def run(self, state, action):
-        torch.manual_seed(123)
+        #torch.manual_seed(123)
         data_x, data_y = state
 
         train_x, train_y, test_x, test_y = (
